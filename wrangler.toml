@@ -10,5 +10,5 @@ account_id = "b7ea767effeb7ee6eaa71e34a83c0a37"
 [[d1_databases]]
 binding = "DB"
 database_name = "hrm-thanhphu-db"
-database_id = "b7ea767effeb7ee6eaa71e34a83c0a37"
+database_id = "93d8b445-2037-46ce-b1a1-c5c427b00cb7"
 migrations_dir = "drizzle/migrations"
