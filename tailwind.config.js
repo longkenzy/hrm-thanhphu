@@ -30,7 +30,7 @@ export default {
         xl: "4px",
       },
       fontFamily: {
-        sans: ["Segoe UI", "-apple-system", "BlinkMacSystemFont", "Roboto", "sans-serif"],
+        sans: ["'Roboto'", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
       },
       boxShadow: {
         flat: "0 1px 2px rgba(0, 0, 0, 0.05)",

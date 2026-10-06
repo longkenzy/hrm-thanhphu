@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Employee } from "./types/employee";
 import { api } from "./lib/api";
 import { exportEmployeesToExcel } from "./lib/excelHelper";
-import { Header } from "./components/Header";
+import { Navbar } from "./components/Navbar";
+import { Sidebar } from "./components/Sidebar";
 import { StatsBar } from "./components/StatsBar";
 import { FilterBar } from "./components/FilterBar";
 import { EmployeeTable } from "./components/EmployeeTable";
@@ -16,6 +17,7 @@ export const App: React.FC = () => {
   const [search, setSearch] = useState<string>("");
   const [status, setStatus] = useState<string>("all");
   const [department, setDepartment] = useState<string>("all");
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
 
   // Modals state
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
@@ -23,7 +25,7 @@ export const App: React.FC = () => {
   const [isImportOpen, setIsImportOpen] = useState<boolean>(false);
   const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
 
-  // Notification message
+  // Toast notification
   const [notify, setNotify] = useState<{ message: string; type: "success" | "info" } | null>(null);
 
   const showNotification = (message: string, type: "success" | "info" = "success") => {
@@ -49,14 +51,23 @@ export const App: React.FC = () => {
     loadData();
   }, []);
 
-  // Danh sách phòng ban duy nhất
-  const departments = useMemo(() => {
-    const set = new Set<string>();
+  // Danh sách phòng ban kèm số lượng
+  const departmentStats = useMemo(() => {
+    const map = new Map<string, number>();
     employees.forEach((e) => {
-      if (e.phong_ban?.trim()) set.add(e.phong_ban.trim());
+      const d = e.phong_ban?.trim();
+      if (d) {
+        map.set(d, (map.get(d) || 0) + 1);
+      }
     });
-    return Array.from(set).sort();
+    return Array.from(map.entries())
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => a.name.localeCompare(b.name));
   }, [employees]);
+
+  const departmentNames = useMemo(() => {
+    return departmentStats.map((d) => d.name);
+  }, [departmentStats]);
 
   // Bộ lọc dữ liệu
   const filteredEmployees = useMemo(() => {
@@ -150,9 +161,10 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] flex flex-col">
-      {/* Header */}
-      <Header
+    <div className="min-h-screen bg-[#F8F9FA] flex flex-col font-sans">
+      {/* 1. Navbar */}
+      <Navbar
+        onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
         onAddNew={handleAddNew}
         onExport={handleExport}
         onImport={() => setIsImportOpen(true)}
@@ -160,67 +172,102 @@ export const App: React.FC = () => {
         totalCount={totalCount}
       />
 
-      {/* Main Container */}
-      <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 py-4 flex-1">
-        {/* Toast thông báo phẳng */}
-        {notify && (
-          <div className="mb-3 px-3 py-2 bg-gray-900 text-white text-xs rounded-[3px] flex items-center justify-between border-l-4 border-l-[#00B7CD] shadow-sm animate-fade-in">
-            <span>{notify.message}</span>
-            <button
-              onClick={() => setNotify(null)}
-              className="text-gray-400 hover:text-white ml-4 text-sm"
-            >
-              &times;
-            </button>
-          </div>
-        )}
-
-        {/* Stats */}
-        <StatsBar
-          total={totalCount}
-          active={activeCount}
-          resigned={resignedCount}
-          departmentCount={departments.length}
+      {/* 2. Body Layout: Sidebar + Main Content */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Sidebar */}
+        <Sidebar
+          isOpen={isSidebarOpen}
           currentStatus={status}
           onSelectStatus={(s) => setStatus(s)}
+          currentDepartment={department}
+          onSelectDepartment={(d) => setDepartment(d)}
+          departments={departmentStats}
+          totalCount={totalCount}
+          activeCount={activeCount}
+          resignedCount={resignedCount}
+          onAddNew={handleAddNew}
+          onImport={() => setIsImportOpen(true)}
+          onExport={handleExport}
+          onReset={handleResetSeed}
         />
 
-        {/* Bộ lọc */}
-        <FilterBar
-          search={search}
-          onSearchChange={setSearch}
-          status={status}
-          onStatusChange={setStatus}
-          department={department}
-          onDepartmentChange={setDepartment}
-          departments={departments}
-          totalFiltered={filteredEmployees.length}
-          onClear={() => {
-            setSearch("");
-            setStatus("all");
-            setDepartment("all");
-          }}
-        />
+        {/* Main Content Area */}
+        <main className="flex-1 overflow-y-auto px-4 md:px-6 py-4">
+          <div className="max-w-7xl mx-auto space-y-4">
+            {/* Toast thông báo */}
+            {notify && (
+              <div className="px-3 py-2 bg-gray-900 text-white text-xs rounded-[3px] flex items-center justify-between border-l-4 border-l-[#00B7CD] shadow-sm animate-fade-in">
+                <span>{notify.message}</span>
+                <button
+                  onClick={() => setNotify(null)}
+                  className="text-gray-400 hover:text-white ml-4 text-sm"
+                >
+                  &times;
+                </button>
+              </div>
+            )}
 
-        {/* Bảng nhân sự */}
-        {loading ? (
-          <div className="bg-white border border-gray-200 rounded-[3px] p-8 text-center text-xs text-gray-500">
-            Đang tải dữ liệu hồ sơ nhân sự...
+            {/* Breadcrumb & Tiêu đề khu vực */}
+            <div className="flex items-center justify-between border-b border-gray-200 pb-2">
+              <div className="flex items-center space-x-2 text-xs text-gray-500">
+                <span className="font-semibold text-gray-800">HRM</span>
+                <span>/</span>
+                <span>
+                  {department !== "all"
+                    ? `Phòng: ${department}`
+                    : status === "all"
+                    ? "Tất cả hồ sơ"
+                    : status}
+                </span>
+              </div>
+              <div className="text-xs text-gray-500">
+                Đang hiển thị <strong>{filteredEmployees.length}</strong> / <strong>{totalCount}</strong> nhân sự
+              </div>
+            </div>
+
+            {/* Thống kê thẻ phẳng */}
+            <StatsBar
+              total={totalCount}
+              active={activeCount}
+              resigned={resignedCount}
+              departmentCount={departmentStats.length}
+              currentStatus={status}
+              onSelectStatus={(s) => setStatus(s)}
+            />
+
+            {/* Bộ lọc */}
+            <FilterBar
+              search={search}
+              onSearchChange={setSearch}
+              status={status}
+              onStatusChange={setStatus}
+              department={department}
+              onDepartmentChange={setDepartment}
+              departments={departmentNames}
+              totalFiltered={filteredEmployees.length}
+              onClear={() => {
+                setSearch("");
+                setStatus("all");
+                setDepartment("all");
+              }}
+            />
+
+            {/* Bảng nhân sự */}
+            {loading ? (
+              <div className="bg-white border border-gray-200 rounded-[3px] p-8 text-center text-xs text-gray-500">
+                Đang tải dữ liệu hồ sơ nhân sự...
+              </div>
+            ) : (
+              <EmployeeTable
+                employees={filteredEmployees}
+                onView={handleView}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            )}
           </div>
-        ) : (
-          <EmployeeTable
-            employees={filteredEmployees}
-            onView={handleView}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
-        )}
-      </main>
-
-      {/* Footer bản quyền & thông tin */}
-      <footer className="border-t border-gray-200 bg-white py-3 text-center text-[11px] text-gray-400">
-        Hệ thống quản lý nhân sự &bull; Cloudflare D1 Serverless &bull; Cloudflare Pages
-      </footer>
+        </main>
+      </div>
 
       {/* Modals */}
       <EmployeeFormModal
@@ -228,7 +275,7 @@ export const App: React.FC = () => {
         onClose={() => setIsFormOpen(false)}
         onSave={handleSave}
         initialData={currentEmployee}
-        departments={departments}
+        departments={departmentNames}
       />
 
       <EmployeeDetailModal
