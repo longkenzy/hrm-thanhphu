@@ -1,15 +1,14 @@
 import React from "react";
+import { MainTab } from "../types/system";
 
 interface SidebarProps {
   isOpen: boolean;
-  currentStatus: string;
-  onSelectStatus: (status: string) => void;
-  currentDepartment: string;
-  onSelectDepartment: (dept: string) => void;
-  departments: { name: string; count: number }[];
-  totalCount: number;
+  currentTab: MainTab;
+  onSelectTab: (tab: MainTab) => void;
   activeCount: number;
   resignedCount: number;
+  trashCount: number;
+  logsCount: number;
   onAddNew: () => void;
   onImport: () => void;
   onExport: () => void;
@@ -18,19 +17,26 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({
   isOpen,
-  currentStatus,
-  onSelectStatus,
-  currentDepartment,
-  onSelectDepartment,
-  departments,
-  totalCount,
+  currentTab,
+  onSelectTab,
   activeCount,
   resignedCount,
+  trashCount,
+  logsCount,
   onAddNew,
   onImport,
   onExport,
   onReset,
 }) => {
+  const menuItems: { id: MainTab; label: string; badge?: number; badgeColor?: string; icon: string }[] = [
+    { id: "dashboard", label: "Dashboard", icon: "📊" },
+    { id: "employees", label: "Hồ sơ nhân sự", badge: activeCount, badgeColor: "bg-[#00B7CD]", icon: "👥" },
+    { id: "resigned", label: "Nghỉ việc", badge: resignedCount, badgeColor: "bg-[#FF9100]", icon: "📋" },
+    { id: "reports", label: "Báo cáo", icon: "📈" },
+    { id: "trash", label: "Thùng rác", badge: trashCount > 0 ? trashCount : undefined, badgeColor: "bg-red-600", icon: "🗑️" },
+    { id: "logs", label: "Nhật ký", badge: logsCount > 0 ? logsCount : undefined, badgeColor: "bg-slate-600", icon: "📜" },
+  ];
+
   return (
     <aside
       className={`bg-[#1E2633] border-r border-[#2A3444] text-slate-200 w-64 h-[calc(100vh-58.5px)] sticky top-[58.5px] flex flex-col shrink-0 transition-all duration-200 z-20 ${
@@ -38,134 +44,49 @@ export const Sidebar: React.FC<SidebarProps> = ({
       }`}
     >
       <div className="flex-1 overflow-y-auto p-3 text-xs space-y-5">
-        {/* Nhóm 1: Trạng thái hồ sơ */}
+        {/* Nhóm Menu Chính */}
         <div>
           <span className="text-[10.5px] uppercase tracking-wider text-[#FFF1D1] font-bold px-2 block mb-2 opacity-90">
-            Trạng Thái Hồ Sơ
+            Danh Mục Hệ Thống
           </span>
           <nav className="space-y-1">
-            {/* Tất cả */}
-            <button
-              onClick={() => {
-                onSelectStatus("all");
-                onSelectDepartment("all");
-              }}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-[3px] font-medium transition-all text-left ${
-                currentStatus === "all" && currentDepartment === "all"
-                  ? "bg-[#DF301C] text-white font-bold shadow-sm"
-                  : "text-slate-300 hover:bg-[#2A3444] hover:text-white"
-              }`}
-            >
-              <span>Tất cả hồ sơ</span>
-              <span
-                className={`font-mono text-[11px] px-1.5 py-0.5 rounded-[3px] ${
-                  currentStatus === "all" && currentDepartment === "all"
-                    ? "bg-white/20 text-white font-bold"
-                    : "bg-[#2A3444] text-slate-300"
-                }`}
-              >
-                {totalCount}
-              </span>
-            </button>
-
-            {/* Đang làm việc */}
-            <button
-              onClick={() => onSelectStatus("Đang làm việc")}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-[3px] font-medium transition-all text-left ${
-                currentStatus === "Đang làm việc"
-                  ? "bg-[#00B7CD] text-white font-bold shadow-sm"
-                  : "text-slate-300 hover:bg-[#2A3444] hover:text-white"
-              }`}
-            >
-              <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-[#00B7CD]" />
-                <span>Đang làm việc</span>
-              </div>
-              <span
-                className={`font-mono text-[11px] px-1.5 py-0.5 rounded-[3px] font-bold ${
-                  currentStatus === "Đang làm việc"
-                    ? "bg-white/20 text-white"
-                    : "bg-[#00B7CD]/20 text-[#00B7CD]"
-                }`}
-              >
-                {activeCount}
-              </span>
-            </button>
-
-            {/* Đã nghỉ việc */}
-            <button
-              onClick={() => onSelectStatus("Đã nghỉ việc")}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-[3px] font-medium transition-all text-left ${
-                currentStatus === "Đã nghỉ việc"
-                  ? "bg-[#FF9100] text-white font-bold shadow-sm"
-                  : "text-slate-300 hover:bg-[#2A3444] hover:text-white"
-              }`}
-            >
-              <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-[#FF9100]" />
-                <span>Đã nghỉ việc</span>
-              </div>
-              <span
-                className={`font-mono text-[11px] px-1.5 py-0.5 rounded-[3px] font-bold ${
-                  currentStatus === "Đã nghỉ việc"
-                    ? "bg-white/20 text-white"
-                    : "bg-[#FF9100]/20 text-[#FF9100]"
-                }`}
-              >
-                {resignedCount}
-              </span>
-            </button>
-          </nav>
-        </div>
-
-        {/* Nhóm 2: Lọc theo phòng ban */}
-        <div>
-          <div className="flex items-center justify-between px-2 mb-2">
-            <span className="text-[10.5px] uppercase tracking-wider text-[#FFF1D1] font-bold opacity-90">
-              Phòng Ban ({departments.length})
-            </span>
-            {currentDepartment !== "all" && (
-              <button
-                onClick={() => onSelectDepartment("all")}
-                className="text-[10.5px] text-[#FF9100] hover:text-white underline font-medium"
-              >
-                Xem tất cả
-              </button>
-            )}
-          </div>
-          <nav className="space-y-0.5 max-h-64 overflow-y-auto pr-1">
-            {departments.map((dept) => {
-              const isSelected = currentDepartment === dept.name;
+            {menuItems.map((item) => {
+              const isActive = currentTab === item.id;
               return (
                 <button
-                  key={dept.name}
-                  onClick={() => onSelectDepartment(dept.name)}
-                  className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-[3px] transition-all text-left text-xs ${
-                    isSelected
-                      ? "bg-[#00B7CD] text-white font-bold shadow-sm"
+                  key={item.id}
+                  onClick={() => onSelectTab(item.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-[3px] font-medium transition-all text-left ${
+                    isActive
+                      ? "bg-[#DF301C] text-white font-bold shadow-sm"
                       : "text-slate-300 hover:bg-[#2A3444] hover:text-white"
                   }`}
                 >
-                  <span className="truncate pr-2">{dept.name}</span>
-                  <span
-                    className={`font-mono text-[10.5px] px-1.5 py-0.2 rounded-[2px] ${
-                      isSelected
-                        ? "bg-white/20 text-white font-semibold"
-                        : "bg-[#2A3444] text-slate-400"
-                    }`}
-                  >
-                    {dept.count}
-                  </span>
+                  <div className="flex items-center space-x-2.5">
+                    <span className="text-sm">{item.icon}</span>
+                    <span className="text-xs">{item.label}</span>
+                  </div>
+                  {item.badge !== undefined && (
+                    <span
+                      className={`font-mono text-[11px] px-1.5 py-0.5 rounded-[3px] font-bold ${
+                        isActive
+                          ? "bg-white/20 text-white"
+                          : `${item.badgeColor || "bg-[#2A3444]"} text-white`
+                      }`}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
                 </button>
               );
             })}
           </nav>
         </div>
 
-        {/* Nhóm 3: Tiện ích dữ liệu */}
-        <div className="border-t border-[#2A3444] pt-3">
+        {/* Tiện ích thao tác nhanh */}
+        <div className="border-t border-[#2A3444] pt-4">
           <span className="text-[10.5px] uppercase tracking-wider text-[#FFF1D1] font-bold px-2 block mb-2 opacity-90">
-            Thao Tác Nhanh
+            Thao Tác Dữ Liệu
           </span>
           <nav className="space-y-1.5">
             <button
@@ -198,8 +119,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Footer Sidebar */}
       <div className="p-3 border-t border-[#2A3444] bg-[#171E28] text-[11px] flex items-center justify-between text-slate-400">
-        <span className="font-semibold text-slate-300">HRM Flat UI</span>
-        <span className="text-[10.5px] text-[#00B7CD] font-mono">D1 Serverless</span>
+        <span className="font-semibold text-slate-300">HRM Thành Phú</span>
+        <span className="text-[10.5px] text-[#00B7CD] font-mono">D1 Database</span>
       </div>
     </aside>
   );
