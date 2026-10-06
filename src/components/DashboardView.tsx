@@ -33,7 +33,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   return (
     <div className="space-y-4">
       {/* 1. Header Banner */}
-      <div className="bg-gradient-to-r from-[#DF301C] via-[#c52714] to-[#1E2633] rounded-[3px] p-5 text-white flex flex-col md:flex-row md:items-center justify-between shadow-sm">
+      <div className="bg-[#1E2633] border-l-4 border-l-[#DF301C] rounded-[3px] p-5 text-white flex flex-col md:flex-row md:items-center justify-between shadow-sm">
         <div>
           <span className="text-xs uppercase tracking-wider text-[#FFF1D1] font-bold block mb-1">
             Bảng Điều Khiển Hệ Thống
@@ -142,7 +142,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   </div>
                   <div className="w-full bg-gray-100 h-2 rounded-[2px] overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-[#DF301C] to-[#FF9100] h-full rounded-[2px]"
+                      className="bg-[#DF301C] h-full rounded-[2px]"
                       style={{ width: `${pct}%` }}
                     />
                   </div>

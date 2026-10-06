@@ -38,12 +38,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4 font-sans select-none"
-      style={{
-        background: "radial-gradient(ellipse at 50% 45%, #162752 0%, #091224 100%)",
-      }}
-    >
+    <div className="min-h-screen flex items-center justify-center px-4 font-sans select-none bg-[#0B1528]">
       {/* Login Card */}
       <div className="w-full max-w-[420px] bg-white rounded-[3px] shadow-[0_15px_45px_rgba(0,0,0,0.5)] overflow-hidden border border-slate-700/30 animate-fade-in">
         {/* Top brand red accent bar */}

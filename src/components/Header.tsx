@@ -71,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </div>
       </div>
-      <div className="h-[2px] bg-gradient-to-r from-[#DF301C] via-[#FF9100] to-[#00B7CD]" />
+      <div className="h-[2px] bg-[#DF301C]" />
     </header>
   );
 };

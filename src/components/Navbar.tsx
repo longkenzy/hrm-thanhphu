@@ -120,8 +120,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Sub-brand accent stripe */}
-      <div className="h-[2.5px] bg-gradient-to-r from-[#FF9100] via-[#FFF1D1] to-[#00B7CD]" />
+      {/* Sub-brand solid accent stripe */}
+      <div className="h-[2px] bg-[#DF301C]" />
     </header>
   );
 };
