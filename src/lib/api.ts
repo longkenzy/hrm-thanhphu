@@ -204,4 +204,52 @@ export const api = {
   resetSeedData(): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(seedData));
   },
+
+  // Đăng nhập
+  async login(username: string, password: string): Promise<{ success: boolean; user?: import("../types/auth").AuthUser; message?: string }> {
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const json = (await res.json()) as any;
+      if (res.ok && json.success && json.user) {
+        localStorage.setItem("hrm_auth_session_user", JSON.stringify(json.user));
+        return json;
+      } else if (json.message) {
+        return { success: false, message: json.message };
+      }
+    } catch {
+      // Fallback offline
+    }
+
+    // Tài khoản admin mặc định khi offline
+    if (username.trim() === "admin" && password === "admin123") {
+      const defaultAdmin: import("../types/auth").AuthUser = {
+        id: 1,
+        username: "admin",
+        full_name: "Quản Trị Viên",
+        role: "admin",
+      };
+      localStorage.setItem("hrm_auth_session_user", JSON.stringify(defaultAdmin));
+      return { success: true, user: defaultAdmin };
+    }
+
+    return { success: false, message: "Tên đăng nhập hoặc mật khẩu không chính xác" };
+  },
+
+  getCurrentUser(): import("../types/auth").AuthUser | null {
+    const raw = localStorage.getItem("hrm_auth_session_user");
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  },
+
+  logout(): void {
+    localStorage.removeItem("hrm_auth_session_user");
+  },
 };

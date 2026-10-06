@@ -3,8 +3,8 @@ import { Hono } from "hono";
 import { handle } from "hono/cloudflare-pages";
 import { cors } from "hono/cors";
 import { drizzle } from "drizzle-orm/d1";
-import { eq, or, like, desc, sql } from "drizzle-orm";
-import { employees } from "../../drizzle/schema";
+import { eq, or, like, desc, sql, and } from "drizzle-orm";
+import { employees, users } from "../../drizzle/schema";
 
 type Bindings = {
   DB: D1Database;
@@ -17,6 +17,69 @@ app.use("*", cors());
 // Health check & DB test
 app.get("/health", async (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+// Xác thực đăng nhập
+app.post("/auth/login", async (c) => {
+  if (!c.env?.DB) {
+    return c.json({ error: "D1 database not found" }, 500);
+  }
+  const db = drizzle(c.env.DB);
+  try {
+    const { username, password } = await c.req.json();
+    if (!username || !password) {
+      return c.json({ success: false, message: "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu" }, 400);
+    }
+
+    const user = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.username, String(username).trim()), eq(users.password, String(password))))
+      .get();
+
+    if (!user) {
+      return c.json({ success: false, message: "Tên đăng nhập hoặc mật khẩu không chính xác" }, 401);
+    }
+
+    return c.json({
+      success: true,
+      user: {
+        id: user.id,
+        username: user.username,
+        full_name: user.full_name,
+        role: user.role,
+      },
+    });
+  } catch (err: any) {
+    return c.json({ success: false, error: err.message }, 500);
+  }
+});
+
+// Đổi mật khẩu
+app.post("/auth/change-password", async (c) => {
+  if (!c.env?.DB) return c.json({ error: "D1 not found" }, 500);
+  const db = drizzle(c.env.DB);
+  try {
+    const { username, oldPassword, newPassword } = await c.req.json();
+    const user = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.username, username), eq(users.password, oldPassword)))
+      .get();
+
+    if (!user) {
+      return c.json({ success: false, message: "Mật khẩu cũ không chính xác" }, 400);
+    }
+
+    await db
+      .update(users)
+      .set({ password: newPassword, updated_at: new Date().toISOString() })
+      .where(eq(users.id, user.id));
+
+    return c.json({ success: true, message: "Đổi mật khẩu thành công" });
+  } catch (err: any) {
+    return c.json({ success: false, error: err.message }, 500);
+  }
 });
 
 // Thống kê tổng quan

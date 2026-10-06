@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Employee } from "./types/employee";
+import { AuthUser } from "./types/auth";
 import { api } from "./lib/api";
 import { exportEmployeesToExcel } from "./lib/excelHelper";
 import { Navbar } from "./components/Navbar";
@@ -10,8 +11,12 @@ import { EmployeeTable } from "./components/EmployeeTable";
 import { EmployeeFormModal } from "./components/EmployeeFormModal";
 import { EmployeeDetailModal } from "./components/EmployeeDetailModal";
 import { ImportExcelModal } from "./components/ImportExcelModal";
+import { LoginPage } from "./components/LoginPage";
 
 export const App: React.FC = () => {
+  // Authentication state
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => api.getCurrentUser());
+
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [search, setSearch] = useState<string>("");
@@ -48,8 +53,10 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (currentUser) {
+      loadData();
+    }
+  }, [currentUser]);
 
   // Danh sách phòng ban kèm số lượng
   const departmentStats = useMemo(() => {
@@ -160,9 +167,19 @@ export const App: React.FC = () => {
     }
   };
 
+  const handleLogout = () => {
+    api.logout();
+    setCurrentUser(null);
+  };
+
+  // Nếu chưa đăng nhập -> hiển thị trang đăng nhập
+  if (!currentUser) {
+    return <LoginPage onLoginSuccess={(user) => setCurrentUser(user)} />;
+  }
+
   return (
-    <div className="min-h-screen bg-[#F8F9FA] flex flex-col font-sans">
-      {/* 1. Navbar */}
+    <div className="h-screen flex flex-col overflow-hidden bg-[#F8F9FA] font-sans select-none">
+      {/* 1. Navbar cố định trên cùng */}
       <Navbar
         onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
         onAddNew={handleAddNew}
@@ -170,11 +187,13 @@ export const App: React.FC = () => {
         onImport={() => setIsImportOpen(true)}
         onReset={handleResetSeed}
         totalCount={totalCount}
+        user={currentUser}
+        onLogout={handleLogout}
       />
 
-      {/* 2. Body Layout: Sidebar + Main Content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Sidebar */}
+      {/* 2. Khung thân hệ thống: Sidebar cố định bên trái, Chỉ Main Area cuộn */}
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Sidebar cố định */}
         <Sidebar
           isOpen={isSidebarOpen}
           currentStatus={status}
@@ -191,9 +210,9 @@ export const App: React.FC = () => {
           onReset={handleResetSeed}
         />
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto px-4 md:px-6 py-4">
-          <div className="max-w-7xl mx-auto space-y-4">
+        {/* Main Content Area - Duy nhất khu vực này cuộn độc lập */}
+        <main className="flex-1 overflow-y-auto px-4 md:px-6 py-4 select-text">
+          <div className="max-w-7xl mx-auto space-y-4 pb-8">
             {/* Toast thông báo */}
             {notify && (
               <div className="px-3 py-2 bg-gray-900 text-white text-xs rounded-[3px] flex items-center justify-between border-l-4 border-l-[#00B7CD] shadow-sm animate-fade-in">

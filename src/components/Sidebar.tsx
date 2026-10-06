@@ -33,7 +33,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <aside
-      className={`bg-[#1E2633] border-r border-[#2A3444] text-slate-200 w-64 flex flex-col shrink-0 transition-all duration-200 z-20 ${
+      className={`bg-[#1E2633] border-r border-[#2A3444] text-slate-200 w-64 h-[calc(100vh-58.5px)] sticky top-[58.5px] flex flex-col shrink-0 transition-all duration-200 z-20 ${
         isOpen ? "block" : "hidden md:block"
       }`}
     >

@@ -83,5 +83,17 @@ export const employees = sqliteTable("employees", {
   updated_at: text("updated_at").default(sql`(datetime('now', 'localtime'))`),
 });
 
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
+  full_name: text("full_name").notNull(),
+  role: text("role").notNull().default("admin"), // admin | hr | viewer
+  created_at: text("created_at").default(sql`(datetime('now', 'localtime'))`),
+  updated_at: text("updated_at").default(sql`(datetime('now', 'localtime'))`),
+});
+
 export type Employee = typeof employees.$inferSelect;
 export type NewEmployee = typeof employees.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;

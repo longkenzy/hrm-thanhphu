@@ -7,6 +7,8 @@ interface NavbarProps {
   onImport: () => void;
   onReset: () => void;
   totalCount: number;
+  user?: import("../types/auth").AuthUser | null;
+  onLogout?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -16,6 +18,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onImport,
   onReset,
   totalCount,
+  user,
+  onLogout,
 }) => {
   return (
     <header className="bg-[#DF301C] text-white sticky top-0 z-30 shadow-sm">
@@ -97,6 +101,22 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             + Thêm Nhân Viên
           </button>
+
+          {user && (
+            <div className="flex items-center space-x-2 border-l border-white/30 pl-2 ml-1">
+              <div className="hidden lg:block text-right text-[11px] leading-tight">
+                <span className="font-bold text-white block">{user.full_name}</span>
+                <span className="text-[#FFF1D1] text-[10px]">@{user.username}</span>
+              </div>
+              <button
+                onClick={onLogout}
+                title="Đăng xuất khỏi hệ thống"
+                className="text-xs text-white border border-white/40 hover:bg-white/20 px-2.5 py-1.5 rounded-[3px] transition-colors font-medium"
+              >
+                Đăng Xuất
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
