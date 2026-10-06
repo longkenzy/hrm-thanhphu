@@ -9,10 +9,10 @@ interface SidebarProps {
   resignedCount: number;
   trashCount: number;
   logsCount: number;
-  onAddNew: () => void;
-  onImport: () => void;
-  onExport: () => void;
-  onReset: () => void;
+  onAddNew?: () => void;
+  onImport?: () => void;
+  onExport?: () => void;
+  onReset?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -23,10 +23,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   resignedCount,
   trashCount,
   logsCount,
-  onAddNew,
-  onImport,
-  onExport,
-  onReset,
 }) => {
   const menuItems: {
     id: MainTab;
@@ -145,39 +141,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </button>
               );
             })}
-          </nav>
-        </div>
-
-        {/* Tiện ích thao tác nhanh */}
-        <div className="border-t border-[#2A3444] pt-4">
-          <span className="text-[10.5px] uppercase tracking-wider text-[#FFF1D1] font-bold px-2 block mb-2 opacity-90">
-            Thao Tác Dữ Liệu
-          </span>
-          <nav className="space-y-1.5">
-            <button
-              onClick={onAddNew}
-              className="w-full text-center px-3 py-1.5 text-xs bg-[#DF301C] hover:bg-[#c52714] text-white rounded-[3px] font-bold transition-all shadow-sm block"
-            >
-              + Thêm Nhân Sự Mới
-            </button>
-            <button
-              onClick={onExport}
-              className="w-full text-center px-3 py-1.5 text-xs bg-[#00B7CD] hover:bg-[#009eb1] text-white rounded-[3px] font-bold transition-all shadow-sm block"
-            >
-              Xuất File Excel (.xlsx)
-            </button>
-            <button
-              onClick={onImport}
-              className="w-full text-center px-3 py-1.5 text-xs bg-[#2A3444] hover:bg-[#354256] text-slate-200 border border-slate-600 rounded-[3px] font-medium transition-all block"
-            >
-              Nhập File Excel (.xlsx)
-            </button>
-            <button
-              onClick={onReset}
-              className="w-full text-center px-2 py-1 text-[11px] text-slate-400 hover:text-[#FFF1D1] hover:underline transition-colors block mt-1"
-            >
-              Khôi phục dữ liệu gốc mẫu
-            </button>
           </nav>
         </div>
       </div>
