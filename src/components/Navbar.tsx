@@ -60,12 +60,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <div className="border-l border-white/30 pl-3">
             <h1 className="text-xs sm:text-sm font-bold text-white uppercase tracking-tight leading-none">
-              Hệ Thống Quản Lý Hồ Sơ Nhân Sự
+              HRM THÀNH PHÚ
             </h1>
             <div className="flex items-center space-x-2 mt-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
               <span className="text-[11px] text-[#FFF1D1] font-medium leading-none">
-                Cloudflare D1 &bull; {totalCount} nhân sự
+                CÔNG TY CP ĐẦU TƯ XÂY LẮP THÀNH PHÚ &bull; {totalCount} nhân sự
               </span>
             </div>
           </div>
