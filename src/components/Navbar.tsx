@@ -18,14 +18,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   totalCount,
 }) => {
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
+    <header className="bg-[#DF301C] text-white sticky top-0 z-30 shadow-sm">
       <div className="h-14 px-4 flex items-center justify-between">
-        {/* Left Section: Toggle & Title */}
+        {/* Left Section: Toggle, Logo & Title */}
         <div className="flex items-center space-x-3">
           <button
             onClick={onToggleSidebar}
             title="Đóng / Mở Menu"
-            className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-[3px] border border-gray-200"
+            className="p-1.5 text-white/90 hover:text-white hover:bg-black/15 rounded-[3px] border border-white/20 transition-colors"
           >
             <svg
               className="w-4 h-4"
@@ -42,22 +42,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             </svg>
           </button>
 
-          <img
-            src="/logo.png"
-            alt="Logo"
-            className="h-8 w-auto object-contain"
-            onError={(e) => {
-              (e.target as HTMLElement).style.display = "none";
-            }}
-          />
+          {/* Logo container with crisp white background */}
+          <div className="bg-white px-2 py-1 rounded-[3px] flex items-center shadow-sm">
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="h-7 w-auto object-contain"
+              onError={(e) => {
+                (e.target as HTMLElement).style.display = "none";
+              }}
+            />
+          </div>
 
-          <div className="border-l border-gray-300 pl-3">
-            <h1 className="text-xs sm:text-sm font-bold text-gray-900 uppercase tracking-tight leading-none">
+          <div className="border-l border-white/30 pl-3">
+            <h1 className="text-xs sm:text-sm font-bold text-white uppercase tracking-tight leading-none">
               Hệ Thống Quản Lý Hồ Sơ Nhân Sự
             </h1>
             <div className="flex items-center space-x-2 mt-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-              <span className="text-[11px] text-gray-500 leading-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
+              <span className="text-[11px] text-[#FFF1D1] font-medium leading-none">
                 Cloudflare D1 &bull; {totalCount} nhân sự
               </span>
             </div>
@@ -68,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center space-x-2">
           <button
             onClick={onReset}
-            className="hidden sm:inline-block text-xs text-gray-600 hover:text-gray-900 border border-gray-200 px-2.5 py-1.5 rounded-[3px] bg-gray-50 hover:bg-gray-100 transition-colors"
+            className="hidden sm:inline-block text-xs text-white/90 hover:text-white border border-white/30 px-2.5 py-1.5 rounded-[3px] bg-white/10 hover:bg-white/20 transition-colors font-medium"
             title="Khôi phục lại dữ liệu gốc từ Excel"
           >
             Đồng bộ mẫu
@@ -76,27 +79,29 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={onImport}
-            className="text-xs text-gray-700 hover:text-gray-900 border border-gray-300 px-2.5 sm:px-3 py-1.5 rounded-[3px] bg-white hover:bg-gray-50 font-medium transition-colors"
+            className="text-xs text-white hover:text-white border border-white/40 px-2.5 sm:px-3 py-1.5 rounded-[3px] bg-white/15 hover:bg-white/25 font-medium transition-colors"
           >
             Nhập Excel
           </button>
 
           <button
             onClick={onExport}
-            className="text-xs text-white border border-[#00B7CD] px-2.5 sm:px-3 py-1.5 rounded-[3px] bg-[#00B7CD] hover:bg-[#009eb1] font-medium transition-colors"
+            className="text-xs text-white border border-[#00B7CD] px-2.5 sm:px-3 py-1.5 rounded-[3px] bg-[#00B7CD] hover:bg-[#009eb1] font-bold transition-colors shadow-sm"
           >
             Xuất Excel
           </button>
 
           <button
             onClick={onAddNew}
-            className="text-xs text-white border border-[#DF301C] px-3 sm:px-3.5 py-1.5 rounded-[3px] bg-[#DF301C] hover:bg-[#c52714] font-medium transition-colors flex items-center"
+            className="text-xs text-gray-900 border border-[#FFF1D1] px-3 sm:px-3.5 py-1.5 rounded-[3px] bg-[#FFF1D1] hover:bg-white font-bold transition-colors shadow-sm flex items-center"
           >
             + Thêm Nhân Viên
           </button>
         </div>
       </div>
-      <div className="h-[2px] bg-gradient-to-r from-[#DF301C] via-[#FF9100] to-[#00B7CD]" />
+
+      {/* Sub-brand accent stripe */}
+      <div className="h-[2.5px] bg-gradient-to-r from-[#FF9100] via-[#FFF1D1] to-[#00B7CD]" />
     </header>
   );
 };
