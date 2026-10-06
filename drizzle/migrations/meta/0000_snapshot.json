@@ -1,0 +1,480 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "165dba2f-9306-4ad8-9b5b-ce09af36d77c",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "employees": {
+      "name": "employees",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "ma_nv": {
+          "name": "ma_nv",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ho_ten": {
+          "name": "ho_ten",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "gioi_tinh": {
+          "name": "gioi_tinh",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_sinh": {
+          "name": "ngay_sinh",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "thang_sinh": {
+          "name": "thang_sinh",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cccd": {
+          "name": "cccd",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_cap_cccd": {
+          "name": "ngay_cap_cccd",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "noi_cap_cccd": {
+          "name": "noi_cap_cccd",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dia_chi_thuong_tru": {
+          "name": "dia_chi_thuong_tru",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dia_chi_tam_tru": {
+          "name": "dia_chi_tam_tru",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "phuong_xa": {
+          "name": "phuong_xa",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "quan_huyen": {
+          "name": "quan_huyen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "tinh_thanh": {
+          "name": "tinh_thanh",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sdt": {
+          "name": "sdt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "tinh_trang_hon_nhan": {
+          "name": "tinh_trang_hon_nhan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nguoi_lien_he_khan_cap": {
+          "name": "nguoi_lien_he_khan_cap",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "moi_quan_he": {
+          "name": "moi_quan_he",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sdt_nguoi_than": {
+          "name": "sdt_nguoi_than",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nghe_nghiep": {
+          "name": "nghe_nghiep",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "vi_tri": {
+          "name": "vi_tri",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cap_bac": {
+          "name": "cap_bac",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "phong_ban": {
+          "name": "phong_ban",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "quan_ly_truc_tiep": {
+          "name": "quan_ly_truc_tiep",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "trinh_do_hoc_van": {
+          "name": "trinh_do_hoc_van",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "chuyen_nganh": {
+          "name": "chuyen_nganh",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_thu_viec": {
+          "name": "ngay_thu_viec",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_chinh_thuc": {
+          "name": "ngay_chinh_thuc",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_ky_hop_dong": {
+          "name": "ngay_ky_hop_dong",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "tham_nien": {
+          "name": "tham_nien",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "thang_dong_bhxh": {
+          "name": "thang_dong_bhxh",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "so_hdld_cu": {
+          "name": "so_hdld_cu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "trang_thai_hd": {
+          "name": "trang_thai_hd",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_ky_hdtv": {
+          "name": "ngay_ky_hdtv",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_ket_thuc_hdtv": {
+          "name": "ngay_ket_thuc_hdtv",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_ky_hdld_xdth_1": {
+          "name": "ngay_ky_hdld_xdth_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_ket_thuc_hdld_xdth_1": {
+          "name": "ngay_ket_thuc_hdld_xdth_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_ky_hdld_xdth_2": {
+          "name": "ngay_ky_hdld_xdth_2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_ket_thuc_hdld_xdth_2": {
+          "name": "ngay_ket_thuc_hdld_xdth_2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_ky_hdld_kxdth": {
+          "name": "ngay_ky_hdld_kxdth",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "so_hdld_moi_nhat": {
+          "name": "so_hdld_moi_nhat",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "so_so_bhxh": {
+          "name": "so_so_bhxh",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "muc_dong_bhxh_cu": {
+          "name": "muc_dong_bhxh_cu",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "muc_dong_bhxh_moi": {
+          "name": "muc_dong_bhxh_moi",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "stk_ngan_hang": {
+          "name": "stk_ngan_hang",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "luong_gross_thu_viec": {
+          "name": "luong_gross_thu_viec",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "luong_gross_chinh_thuc": {
+          "name": "luong_gross_chinh_thuc",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "phu_cap": {
+          "name": "phu_cap",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "luong_dieu_chinh_1": {
+          "name": "luong_dieu_chinh_1",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_hieu_luc_1": {
+          "name": "ngay_hieu_luc_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "luong_dieu_chinh_2": {
+          "name": "luong_dieu_chinh_2",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_hieu_luc_2": {
+          "name": "ngay_hieu_luc_2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "luong_dieu_chinh_3": {
+          "name": "luong_dieu_chinh_3",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_hieu_luc_3": {
+          "name": "ngay_hieu_luc_3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "luong_gross_hien_tai": {
+          "name": "luong_gross_hien_tai",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ngay_hieu_luc_hien_tai": {
+          "name": "ngay_hieu_luc_hien_tai",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "trang_thai": {
+          "name": "trang_thai",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Đang làm việc'"
+        },
+        "ngay_nghi_viec": {
+          "name": "ngay_nghi_viec",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ly_do_nghi": {
+          "name": "ly_do_nghi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ghi_chu": {
+          "name": "ghi_chu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(datetime('now', 'localtime'))"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(datetime('now', 'localtime'))"
+        }
+      },
+      "indexes": {
+        "employees_ma_nv_unique": {
+          "name": "employees_ma_nv_unique",
+          "columns": [
+            "ma_nv"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

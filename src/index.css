@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #DF301C;
+  --primary-hover: #c52714;
+  --accent-orange: #FF9100;
+  --accent-cream: #FFF1D1;
+  --accent-cyan: #00B7CD;
+  --border-radius: 3px;
+  --border-color: #E2E8F0;
+}
+
+* {
+  border-radius: 3px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1e293b;
+  background-color: #f8fafc;
+}
+
+/* Flat design utilities */
+.flat-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 3px;
+}
+
+.flat-input {
+  border: 1px solid #cbd5e1;
+  border-radius: 3px;
+  background-color: #ffffff;
+  padding: 6px 10px;
+  font-size: 13.5px;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.flat-input:focus {
+  border-color: #DF301C;
+  box-shadow: 0 0 0 1px #DF301C;
+}
+
+.flat-btn-primary {
+  background-color: #DF301C;
+  color: #ffffff;
+  border: 1px solid #DF301C;
+  border-radius: 3px;
+  padding: 6px 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.flat-btn-primary:hover {
+  background-color: #c52714;
+  border-color: #c52714;
+}
+
+.flat-btn-secondary {
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 3px;
+  padding: 6px 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.flat-btn-secondary:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.flat-btn-cyan {
+  background-color: #00B7CD;
+  color: #ffffff;
+  border: 1px solid #00B7CD;
+  border-radius: 3px;
+  padding: 6px 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.flat-btn-cyan:hover {
+  background-color: #009eb1;
+  border-color: #009eb1;
+}
+
+.flat-btn-orange {
+  background-color: #FF9100;
+  color: #ffffff;
+  border: 1px solid #FF9100;
+  border-radius: 3px;
+  padding: 6px 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.flat-btn-orange:hover {
+  background-color: #e58200;
+  border-color: #e58200;
+}
+
+.flat-badge-active {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  padding: 2px 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  border-radius: 3px;
+}
+
+.flat-badge-resigned {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  padding: 2px 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  border-radius: 3px;
+}
+
+.flat-badge-probation {
+  background-color: #FFF1D1;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  padding: 2px 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  border-radius: 3px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

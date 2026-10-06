@@ -1,0 +1,14 @@
+name = "hrm-thanhphu"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "dist"
+
+# Cloudflare ID được cung cấp
+account_id = "b7ea767effeb7ee6eaa71e34a83c0a37"
+
+# Cấu hình kết nối Cloudflare D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "hrm-thanhphu-db"
+database_id = "b7ea767effeb7ee6eaa71e34a83c0a37"
+migrations_dir = "drizzle/migrations"
