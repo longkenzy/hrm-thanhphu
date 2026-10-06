@@ -36,7 +36,7 @@ export const api = {
 
       const res = await fetch(`/api/employees?${q.toString()}`);
       if (res.ok) {
-        const json = await res.json();
+        const json = (await res.json()) as any;
         if (json.success && Array.isArray(json.data)) {
           return json;
         }

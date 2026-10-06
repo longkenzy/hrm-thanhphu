@@ -1,4 +1,6 @@
+/// <reference types="@cloudflare/workers-types" />
 import { Hono } from "hono";
+import { handle } from "hono/cloudflare-pages";
 import { cors } from "hono/cors";
 import { drizzle } from "drizzle-orm/d1";
 import { eq, or, like, desc, sql } from "drizzle-orm";
@@ -239,6 +241,4 @@ app.post("/employees/bulk", async (c) => {
   }
 });
 
-export const onRequest: PagesFunction<Bindings> = async (context) => {
-  return app.fetch(context.request, context.env, context);
-};
+export const onRequest = handle(app);
